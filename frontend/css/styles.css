@@ -1,0 +1,14 @@
+#chat-window {
+    border: 1px solid #ccc;
+    padding: 20px;
+    height: 300px;
+    overflow-y: auto;
+}
+
+#user-input {
+    width: 80%;
+}
+
+button {
+    width: 18%;
+}

@@ -1,0 +1,121 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: The "What Am I Thinking?" (wait) AI Chat plugin.
+
+Resources:
+
+  WaitLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: wait4ai_lambda.handler
+      Runtime: python3.8
+      CodeUri: src/functions/
+      Layers:
+        - !Ref PythonLayer
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: Wait4aiApi  # Explicitly refer to your defined API
+            Path: /chat
+            Method: GET
+
+  ConversationLoaderLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: conversation_loader.handler  # Replace with your Lambda's handler
+      Role: !GetAtt [ConversationLoaderLambdaRole, Arn]
+      Runtime: python3.8
+      CodeUri: src/functions/  # Replace with your Lambda code directory
+      Layers:
+        - !Ref PythonLayer  # Assuming you're using the same Python layer
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref ConversationTable  # Reference to your DynamoDB table
+      Timeout: 10  # Timeout in seconds, adjust as needed
+
+  # API Gateway
+  Wait4aiApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: lab
+      DefinitionBody:
+        swagger: '2.0'
+        info:
+          title: wait
+        paths:
+          /chat:
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${WaitLambda.Arn}/invocations
+
+  ConversationLoaderLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: S3ConversationAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:*
+                Resource: "arn:aws:s3:::wait4ai-conversation-bucket/*"
+        - PolicyName: DynamoDBWriteAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                Resource: !GetAtt [ ConversationTable, Arn ]
+        - PolicyName: CloudWatchLogging
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*
+
+  PythonLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: python-dependencies
+      Description: Python dependencies for the WAIT Lambda function
+      ContentUri: lib/
+      CompatibleRuntimes:
+        - python3.8
+
+  ConversationTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Conversations
+      AttributeDefinitions:
+        - AttributeName: ConversationID
+          AttributeType: S
+        - AttributeName: SequenceNumber
+          AttributeType: N
+      KeySchema:
+        - AttributeName: ConversationID
+          KeyType: HASH
+        - AttributeName: SequenceNumber
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
