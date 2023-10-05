@@ -1,0 +1,24 @@
+[
+  {
+    "ConversationID": "conv_001",
+    "SequenceNumber": 1,
+    "IsNumberExpected": false,
+    "Prompt": "//wait",
+    "Thoughts": ["As a new engineering principal, how can I make the top brass happy?", "There's that damn fly again!", "I wonder if Arijeet noticed that br**#**..."],
+    "SelectedThoughtIndex": 1,
+    "Response": "You didnt select Thought 1, but, it was your first thought, so, lets address that one.  To make the boss happy, we need to securely provide accurate solutions, within budget, at the speed of business.",
+    "Timestamp": "2023-10-03T18:24:00Z",
+    "IsLatest": true
+  },
+  {
+    "ConversationID": "conv_001",
+    "SequenceNumber": 2,
+    "IsNumberExpected": true,
+    "Prompt": "//wait",
+    "Thoughts": ["How the heck do I do that?", "I wonder who does Mani's hair...", "That burrito is not sitting well with me right now. "],
+    "SelectedThoughtIndex": null,
+    "Response": "Many recipes or blueprints are available. Here are some industry-proven models.",
+    "Timestamp": "2023-10-03T18:25:00Z",
+    "IsLatest": false
+  }
+]

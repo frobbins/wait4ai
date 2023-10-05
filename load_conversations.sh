@@ -1,0 +1,1 @@
+aws s3 cp conversations.json s3://wait4ai-conversation-bucket/

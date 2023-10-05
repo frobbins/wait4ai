@@ -7,7 +7,6 @@ set -e
 S3_WAIT_BUCKET="wait4ai-bucket"
 STACK_NAME="wait4ai"
 
-# Install Python dependencies if any
 echo "Installing Python dependencies..."
 pip install -r requirements.txt -t lib/python/
 
@@ -25,8 +24,6 @@ aws cloudformation deploy \
     --stack-name $STACK_NAME \
     --capabilities CAPABILITY_IAM
 
-# Optionally, upload frontend files to the S3 bucket
-echo "Uploading frontend files to S3..."
-aws s3 sync frontend/ s3://$S3_WAIT_UI_BUCKET/frontend/
+./ui.sh
 
 echo "Deployment complete."

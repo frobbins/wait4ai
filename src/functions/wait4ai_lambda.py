@@ -17,37 +17,40 @@ def handler(event, context):
     query_parameters = event.get('queryStringParameters')
     if query_parameters:
         user_input = query_parameters.get('user_input', None)
+        sequence = int(query_parameters.get('sequence', 1))  # Get the sequence number
     else:
         user_input = None
+        sequence = 1
 
 
     # Log the extracted user_input
     logger.info(f'User input: {user_input}')
-
-    # Your logic to process the user_input and generate a response
-    # For example, you might query the DynamoDB table based on the user_input
-    # and generate a response.
+    logger.info(f'sequence: {sequence}')
 
     try:
         response = table.query(
-            KeyConditionExpression='ConversationID = :convID',
+            KeyConditionExpression='ConversationID = :convID AND SequenceNumber = :seq',
             ExpressionAttributeValues={
-                ':convID': 'conv_001'  # Replace with the actual key you want to query
-            },
-            ScanIndexForward=True  # Sort by SequenceNumber in ascending order
+                ':convID': 'conv_001',
+                ':seq': sequence  # Use the sequence number
+            }
         )
         earliest_sequence = response['Items'][0] if response['Items'] else {}
-        thoughts = earliest_sequence.get('Thoughts', [])
+        thought = earliest_sequence.get('Thought', '')
+        thought_response = earliest_sequence.get('Response', '')
+        image = earliest_sequence.get('image', '')
     except Exception as e:
-        print(f"Error fetching data from DynamoDB: {e}")
-        thoughts = []
+        logger.error(f"Error fetching data from DynamoDB: {e}")
+        thought = ''
+        thought_response = ''
+        image = ''
 
     response_body = {
-        "thoughts": thoughts,
-        "follow_up": "Some follow-up action or message"
+        "thought": thought,
+        "response": thought_response,
+        "image": image
     }
 
-    # Log the response body
     logger.info(f'Response body: {json.dumps(response_body)}')
 
     return {
@@ -58,7 +61,7 @@ def handler(event, context):
             "Access-Control-Allow-Headers": "Content-Type",
             "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
         },
-        "body": json.dumps(response_body, cls=DecimalEncoder)
+        "body": json.dumps(response_body)
     }
 
 class DecimalEncoder(json.JSONEncoder):

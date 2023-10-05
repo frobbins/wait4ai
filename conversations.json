@@ -1,0 +1,35 @@
+[
+  {
+    "ConversationID": "conv_001",
+    "SequenceNumber": 1,
+    "Prompt": "//wait",
+    "Thought": "As an engineering leader, what can I do to ensure we are successful?",
+    "Response": "You will need a mission statement that your boss will agree upon.",
+    "Timestamp": "2023-10-03T18:24:00Z"
+  },
+  {
+    "ConversationID": "conv_001",
+    "SequenceNumber": 2,
+    "Prompt": "//wait",
+    "Thought": "This is about the stupidest plugin I have ever seen.",
+    "Response": "You paid for me.",
+    "Timestamp": "2023-10-03T18:24:00Z"
+  },
+  {
+    "ConversationID": "conv_001",
+    "SequenceNumber": 3,
+    "Prompt": "//wait",
+    "Thought": "Ok smarty, give me a good strategic vision I can hang my hat on at the end of the day.",
+    "Response": "How about this for a vision?: To securely provide accurate solutions, within budget, at the speed of business",
+    "Timestamp": "2023-10-03T18:25:00Z"
+  },
+  {
+    "ConversationID": "conv_001",
+    "SequenceNumber": 4,
+    "Prompt": "//wait",
+    "Thought": "Theres that darn fly again!",
+    "Response": "Smack it!",
+    "image": "the-fly.jpg",
+    "Timestamp": "2023-10-03T18:25:00Z"
+  }
+]
