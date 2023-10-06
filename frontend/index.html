@@ -1,23 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>What Am I Thinking? - AI Plugin</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>Welcome to What Am I Thinking AI Chat Plugin</title>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 <body>
 
-<h1>What Am I Thinking? - AI Plugin</h1>
-<p>Welcome to the AI chat plugin that will eventually replace you.</p>
+<header>
+    <h1>What Am I Thinking (//wait)</h1>
+    <h2>a better AI Chat plugin</h2>
+</header>
 
-<div id="chat-window">
-    <!-- Chat messages will be appended here -->
+<main>
+    <section id="intro">
+        <p>Introducing the revolutionary <strong>WAIT AI Chat Plugin</strong>, the only chatbot that knows what you're thinking.</p>
+        <p class="highlight">The App is <strong>FREE</strong>!</p>
+    </section>
+
+    <section id="earbuds">
+        <img src="./images/earbuds.jpg" alt="Earbuds" width="300">
+        <p>Required Earbuds <span class="fine-print">(Purchased Separately)</span></p>
+        <p class="fine-print">Price: $64,000</p>
+    </section>
+
+    <section id="description">
+        <p>This state-of-the-art plugin uses our proprietary earbuds to read your thoughts and engage in a truly intuitive chat experience.</p>
+    </section>
+
+    <button id="start-button">Let's Get Started</button>
+</main>
+
+<!-- Chat window, initially hidden -->
+<div id="chat-container" style="display:none;">
+    <h2>Thought Window</h2>
+    <div id="chat-window">
+        <!-- Chat messages will be appended here -->
+    </div>
+    <button id="send-thought">send thought</button>
 </div>
 
-<input type="text" id="user-input" placeholder="Type your message...">
-<button onclick="sendMessage()">Send</button>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="js/script.js"></script>
+
+<script>
+    document.getElementById('start-button').addEventListener('click', function() {
+        document.getElementById('chat-container').style.display = 'block';
+        document.getElementById('intro').style.display = 'none';
+        document.getElementById('earbuds').style.display = 'none';
+        document.getElementById('description').style.display = 'none';
+        document.getElementById('start-button').style.display = 'none';
+    });
+</script>
 
 </body>
 </html>

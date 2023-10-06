@@ -1,4 +1,4 @@
-let sequence = 0;
+let sequence = 1;
 
 async function typeMessage(message, element) {
     for (let i = 0; i < message.length; i++) {
@@ -7,26 +7,24 @@ async function typeMessage(message, element) {
     }
 }
 
+document.getElementById('send-thought').addEventListener('click', sendMessage);
+
 async function sendMessage() {
-    const userInput = document.getElementById('user-input').value;
+    console.log("sendMessage called");  // Add this line
     const chatWindow = document.getElementById('chat-window');
-
-    // Clear the input field
-    document.getElementById('user-input').value = '';
-
-    // Clear the chat window if the user input is '//wait'
-    if (userInput.trim() === '//wait') {
-        chatWindow.innerHTML = '';
-        sequence++;  // Increment the sequence number
-    }
+    chatWindow.innerHTML = '';
 
     try {
         const response = await axios.get('https://ymwurigzfb.execute-api.us-east-1.amazonaws.com/lab/chat', {
             params: {
-                user_input: userInput,
                 sequence: sequence  // Pass the sequence number
             }
         });
+
+        console.log(response.data);  // Debugging line
+
+        sequence = parseInt(response.data.sequence, 10) || sequence;  // Update sequence
+        sequence += 1;
 
         const thought = response.data.thought || 'No thought received';
         const thoughtResponse = response.data.response || 'No response received';
@@ -54,6 +52,7 @@ async function sendMessage() {
         }, 4000);  // 4-second delay
 
     } catch (error) {
+        console.error(error);  // Debugging line
         chatWindow.innerHTML += '<p>AI: Still waiting... </p>';
     }
 }

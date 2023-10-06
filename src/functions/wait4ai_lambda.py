@@ -15,16 +15,11 @@ def handler(event, context):
     logger.info(f'event: {json.dumps(event)}')
 
     query_parameters = event.get('queryStringParameters')
-    if query_parameters:
-        user_input = query_parameters.get('user_input', None)
-        sequence = int(query_parameters.get('sequence', 1))  # Get the sequence number
+    if query_parameters is not None:
+        sequence = Decimal(query_parameters.get('sequence', 1))
     else:
-        user_input = None
-        sequence = 1
+        sequence = Decimal(1)  # Default value
 
-
-    # Log the extracted user_input
-    logger.info(f'User input: {user_input}')
     logger.info(f'sequence: {sequence}')
 
     try:
@@ -48,7 +43,8 @@ def handler(event, context):
     response_body = {
         "thought": thought,
         "response": thought_response,
-        "image": image
+        "image": image,
+        "sequence": str(sequence)
     }
 
     logger.info(f'Response body: {json.dumps(response_body)}')
