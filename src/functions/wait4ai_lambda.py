@@ -31,19 +31,23 @@ def handler(event, context):
             }
         )
         earliest_sequence = response['Items'][0] if response['Items'] else {}
-        thought = earliest_sequence.get('Thought', '')
-        thought_response = earliest_sequence.get('Response', '')
-        image = earliest_sequence.get('image', '')
+        thought = earliest_sequence.get('thought', '')
+        thought_image = earliest_sequence.get('thought_image', '')
+        ai = earliest_sequence.get('ai', '')
+        ai_image = earliest_sequence.get('ai_image', '')
+
     except Exception as e:
         logger.error(f"Error fetching data from DynamoDB: {e}")
         thought = ''
-        thought_response = ''
-        image = ''
+        thought_image = ''
+        ai = ''
+        ai_image = ''
 
     response_body = {
         "thought": thought,
-        "response": thought_response,
-        "image": image,
+        "thought_image": thought_image
+        "ai": ai,
+        "ai_image": ai_image,
         "sequence": str(sequence)
     }
 

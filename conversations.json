@@ -2,34 +2,53 @@
   {
     "ConversationID": "conv_001",
     "SequenceNumber": 1,
-    "Prompt": "//wait",
-    "Thought": "As an engineering leader, what can I do to ensure we are successful?",
-    "Response": "You will need a mission statement that your boss will agree upon.",
+    "thought": "As an engineering leader, what can I do to ensure we are successful?",
+    "ai": "You will need a solid blueprint that guarantees success. Or, you can wing it. ",
     "Timestamp": "2023-10-03T18:24:00Z"
   },
   {
     "ConversationID": "conv_001",
     "SequenceNumber": 2,
-    "Prompt": "//wait",
-    "Thought": "This is about the stupidest plugin I have ever seen.",
-    "Response": "You paid for me.",
+    "thought": "Will my thoughts get me fired?",
+    "ai": "83% of your thoughts could get you in trouble, are you sure you want to continue?",
     "Timestamp": "2023-10-03T18:24:00Z"
   },
   {
     "ConversationID": "conv_001",
     "SequenceNumber": 3,
-    "Prompt": "//wait",
-    "Thought": "Ok smarty, give me a good strategic vision I can hang my hat on at the end of the day.",
-    "Response": "How about this for a vision?: To securely provide accurate solutions, within budget, at the speed of business",
+    "thought": "I need some guidance.  How should I approach this?",
+    "ai": "The Continuous Delivery Maturity Model provides an industry-proven blue-print that guarantees success!",
+    "ai_image": "Continuous-Delivery-Maturity-Model.webp",
     "Timestamp": "2023-10-03T18:25:00Z"
   },
   {
     "ConversationID": "conv_001",
     "SequenceNumber": 4,
-    "Prompt": "//wait",
-    "Thought": "Theres that darn fly again!",
-    "Response": "Smack it!",
-    "image": "the-fly.jpg",
+    "thought_image": "elephant-in-dining-room.png",
+    "ai": "Yes, its an elephant that's hard to eat. ",
+    "Timestamp": "2023-10-03T18:25:00Z"
+  },
+  {
+    "ConversationID": "conv_001",
+    "SequenceNumber": 5,
+    "thought": "Wonder what Prakash is thinking about right now. ",
+    "ai_image": "golf.png",
+    "Timestamp": "2023-10-03T18:25:00Z"
+  },
+  {
+    "ConversationID": "conv_001",
+    "SequenceNumber": 6,
+    "thought": "Lets break this down into small bites that we can nibble on over time. ",
+    "ai": "Here's a more palatable elephant.  Color-coded to show the different areas of focus.",
+    "ai_image": "elephant-with-color-arc.png",
+    "Timestamp": "2023-10-03T18:25:00Z"
+  },
+  {
+    "ConversationID": "conv_001",
+    "SequenceNumber": 7,
+    "thought": "I really need actionable items that result in eventual success. ",
+    "ai": "Let's break this down even further into Non-Functional Requirements (NFRs)",
+    "ai_image": "elephant-with-color-arc.png",
     "Timestamp": "2023-10-03T18:25:00Z"
   }
 ]

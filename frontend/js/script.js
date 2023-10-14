@@ -27,27 +27,39 @@ async function sendMessage() {
         sequence += 1;
 
         const thought = response.data.thought || 'No thought received';
-        const thoughtResponse = response.data.response || 'No response received';
-        const image = response.data.image;
+        const thought_image = response.data.thought_image;
+        const ai = response.data.ai || 'please adjust your earbuds';
+        const ai_image = response.data.ai_image;
 
         const thoughtElement = document.createElement('p');
-        thoughtElement.innerHTML = '&#x1F914;  ';
+        //thinking emoji
+        // thoughtElement.innerHTML = '&#x1F914;  ';
+        //headphone emoji
+        thoughtElement.innerHTML = '&#x1F3A7;  ';
         chatWindow.appendChild(thoughtElement);
 
         await typeMessage(thought, thoughtElement);
 
         setTimeout(async () => {
-            const responseElement = document.createElement('p');
-            responseElement.innerHTML = '&#x1F916; ';
-            chatWindow.appendChild(responseElement);
-            await typeMessage(thoughtResponse, responseElement);
+            const aiElement = document.createElement('p');
+            aiElement.innerHTML = '&#x1F916; ';
+            chatWindow.appendChild(aiElement);
+            await typeMessage(ai, aiElement);
 
-            if (image) {
-                const imgElement = document.createElement('img');
-                imgElement.src = `./images/${image}`;
-                imgElement.alt = 'Response image';
-                imgElement.width = 200;  // You can set the dimensions as needed
-                chatWindow.appendChild(imgElement);
+            if (thought_image) {
+                const thoughtImageElement = document.createElement('img');
+                thoughtImageElement.src = `./images/${thought_image}`;
+                thoughtImageElement.alt = 'thought image';
+                thoughtImageElement.width = 600;  // You can set the dimensions as needed
+                chatWindow.appendChild(thoughtImageElement);
+            }
+
+            if (ai_image) {
+                const aiImageElement = document.createElement('img');
+                aiImageElement.src = `./images/${ai_image}`;
+                aiImageElement.alt = 'ai image';
+                aiImageElement.width = 600;  // You can set the dimensions as needed
+                chatWindow.appendChild(aiImageElement);
             }
         }, 4000);  // 4-second delay
 
